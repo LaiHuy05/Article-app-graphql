@@ -5,5 +5,6 @@
     "removeComments": true, // loại bỏ các comment trong quá trình biên dịch sang js
     "esModuleInterop": true ,// dùng từ khoá import để thay cho require 
     "outDir": "dist", // thư mục chứa file js sau khi biên dịch
+    "strict": false
   }
 }
