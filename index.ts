@@ -1,10 +1,10 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import * as database from './config/database';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 
 
-import { resolvers } from './resolvers';
+import { resolvers } from './resolvers/index.resolver';
 import { typeDefs } from './typeDefs/index.typeDefs';
 
 const startServer = async () => {
@@ -18,7 +18,7 @@ const startServer = async () => {
   // GraphQl
   const apolloServer = new ApolloServer({
     typeDefs: typeDefs,
-    resolvers
+    resolvers: resolvers
   })
 
   await apolloServer.start();
