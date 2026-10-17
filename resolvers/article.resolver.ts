@@ -4,8 +4,11 @@ import Category from "../models/category.model";
 export const resolversArticle = {
   Query: {
     getListArticles: async (_, args) => {
-      const {sortKey, sortValue, currentPage, limitItems} = args;
+      const {sortKey, sortValue, currentPage, limitItems, filterKey, filterValue} = args;
 
+      const find = {
+        deleted: false
+      }
       //sort
       const sort = {};
 
@@ -18,10 +21,14 @@ export const resolversArticle = {
       const skip = (currentPage - 1) * limitItems;
       //ENd pagination
 
+      // Filter
+      if(filterKey && filterValue) {
+        find[filterKey] = filterValue;
+      }
+      // End Filter
 
-      const articles = await Article.find({
-        deleted: false
-      }).sort(sort).limit(limitItems).skip(skip);
+
+      const articles = await Article.find(find).sort(sort).limit(limitItems).skip(skip);
 
       return articles;
     },
