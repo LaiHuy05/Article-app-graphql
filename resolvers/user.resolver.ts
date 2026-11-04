@@ -4,6 +4,33 @@ import { generateRandomString } from '../helpers/generate';
 
 
 export const resolversUser = {
+  Query: {
+    getUser: async (_, args) => {
+      const { id } = args;
+
+      const infoUser = await User.findOne({
+        _id: id,
+        deleted: false
+      });
+
+      if(infoUser) {
+        return {
+          code: 200,
+          message: "Thành công",
+          id: infoUser.id,
+          fullName: infoUser.fullName,
+          email: infoUser.email,
+          token: infoUser.token
+        };
+      }else {
+        return {
+          code: 400,
+          message: "Thất bại"
+        }
+      }
+    }
+  },
+
   Mutation: {
     registerUser: async (_, args) => {
       const { user } = args;
